@@ -101,22 +101,14 @@ function getProficiencyBonus(level, rank) {
  * @returns {number} the cover bonus to AC
  */
 function getCoverBonus(behindObstacle, takingCover) {
-  // TODO
+  if (behindObstacle) {
+    return 0;
+  } else if (takingCover) {
+    return 4;
+  } else {
+    return 2;
+  }
 }
-function getProficiencyBonus(level, rank) {
-  return {
-    untrained: 0,
-    trained: level + 2,
-    expert: level + 4,
-    master: level + 6,
-    legendary: level + 8,
-  }[rank];
-}
-getProficiencyBonus(5, "untrained");
-getProficiencyBonus(5, "trained");
-getProficiencyBonus(5, "expert");
-getProficiencyBonus(5, "master");
-getProficiencyBonus(5, "legendary");
 
 /**
  * A creature's current hit points (HP) is reduced by taking damage.
@@ -131,7 +123,13 @@ getProficiencyBonus(5, "legendary");
  * @returns {number} the creature's remaining HP after taking damage
  */
 function getRemainingHp(maxHp, currentHp, damage) {
-  // TODO
+if (damage >= 2 * maxHp) {
+    return -1;
+  } else if (currentHp - damage <= 0) {
+    return 0;
+  } else {
+    return currentHp - damage;
+  }
 }
 
 /**
@@ -143,7 +141,15 @@ function getRemainingHp(maxHp, currentHp, damage) {
  * @returns {boolean} whether the creature can see
  */
 function canSee(light, vision) {
-  // TODO
+  if (light === "bright") {
+    return true;
+  } else if (light === "dim" ) {
+    return vision === "low-light" || vision === "dark";
+  } else if (light === "dark"){
+    return vision === "dark";
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -157,5 +163,11 @@ function canSee(light, vision) {
  * @returns {number} damage dealt by the strike
  */
 function getStrikeDamage(attack, ac, damage) {
-  // TODO
+  if (doesStrikeCrit(attack, ac)) {
+    return damage * 2;
+  } else if (doesStrikeHit(attack, ac)) {
+    return damage;
+  } else {
+    return 0;
+  }
 }
