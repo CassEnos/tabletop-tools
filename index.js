@@ -6,7 +6,7 @@
  * @returns {boolean} whether the wizard can cast the spell
  */
 function canCastSpell(isSpellPrepared, hasScroll) {
-  // TODO
+  return isSpellPrepared || hasScroll;
 }
 
 /**
@@ -17,7 +17,7 @@ function canCastSpell(isSpellPrepared, hasScroll) {
  * @returns {boolean} whether the creature is hidden from the observer
  */
 function isHidden(hiding, aware) {
-  // TODO
+  return hiding || !aware;
 }
 
 /**
@@ -87,6 +87,20 @@ function getProficiencyBonus(level, rank) {
 function getCoverBonus(behindObstacle, takingCover) {
   // TODO
 }
+function getProficiencyBonus(level, rank) {
+  return {
+    untrained: 0,
+    trained: level + 2,
+    expert: level + 4,
+    master: level + 6,
+    legendary: level + 8,
+  }[rank];
+}
+getProficiencyBonus(5, "untrained"); // 0
+getProficiencyBonus(5, "trained"); // 7
+getProficiencyBonus(5, "expert"); // 9
+getProficiencyBonus(5, "master"); // 11
+getProficiencyBonus(5, "legendary"); // 13
 
 /**
  * A creature's current hit points (HP) is reduced by taking damage.
