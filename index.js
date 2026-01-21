@@ -28,7 +28,7 @@ function isHidden(hiding, aware) {
  * @returns {boolean} whether the strike hits
  */
 function doesStrikeHit(attack, ac) {
-  // TODO
+  return attack >= ac;
 }
 
 /**
@@ -39,7 +39,7 @@ function doesStrikeHit(attack, ac) {
  * @returns {boolean} whether the strike is a critical hit
  */
 function doesStrikeCrit(attack, ac) {
-  // TODO
+  return attack >= ac + 10;
 }
 
 /**
@@ -51,7 +51,11 @@ function doesStrikeCrit(attack, ac) {
  * @returns {number} total hit points after healing
  */
 function heal(maxHp, currentHp, healAmount) {
-  // TODO
+  if (currentHp + healAmount > maxHp) {
+    return maxHp;
+  } else {
+    return currentHp + healAmount;
+  }
 }
 
 /**
@@ -71,7 +75,19 @@ function heal(maxHp, currentHp, healAmount) {
  * @returns {number} the character's proficiency bonus
  */
 function getProficiencyBonus(level, rank) {
-  // TODO
+  if (rank === "untrained") {
+    return 0;
+    let bonus = 0;
+  } else if (rank === "trained") {
+    return level + 2;
+  } else if (rank === "expert") {
+    return level + 4;
+  } else if (rank === "master") {
+    return level + 6;
+  } else if (rank === "legendary") {
+    return level + 8;
+  }
+  return level + bonus;
 }
 
 /**
@@ -96,11 +112,11 @@ function getProficiencyBonus(level, rank) {
     legendary: level + 8,
   }[rank];
 }
-getProficiencyBonus(5, "untrained"); // 0
-getProficiencyBonus(5, "trained"); // 7
-getProficiencyBonus(5, "expert"); // 9
-getProficiencyBonus(5, "master"); // 11
-getProficiencyBonus(5, "legendary"); // 13
+getProficiencyBonus(5, "untrained");
+getProficiencyBonus(5, "trained");
+getProficiencyBonus(5, "expert");
+getProficiencyBonus(5, "master");
+getProficiencyBonus(5, "legendary");
 
 /**
  * A creature's current hit points (HP) is reduced by taking damage.
